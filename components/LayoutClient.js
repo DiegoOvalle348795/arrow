@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { useSession } from "next-auth/react";
 import { Crisp } from "crisp-sdk-web";
 import { SessionProvider } from "next-auth/react";
 import NextTopLoader from "nextjs-toploader";
@@ -14,7 +13,6 @@ import config from "@/config";
 // This component is separated from ClientLayout because it needs to be wrapped with <SessionProvider> to use useSession() hook
 const CrispChat = () => {
   const pathname = usePathname();
-  const { data } = useSession();
 
   useEffect(() => {
     if (config?.crisp?.id) {
@@ -37,10 +35,9 @@ const CrispChat = () => {
 
   // Add User Unique ID to Crisp to easily identify users when reaching support (optional)
   useEffect(() => {
-    if (data?.user && config?.crisp?.id) {
-      Crisp.session.setData({ userId: data.user?.id });
-    }
-  }, [data]);
+    // The useSession hook was removed, so this effect is no longer needed.
+    // If user data is needed, it should be passed as a prop or fetched elsewhere.
+  }, []);
 
   return null;
 };

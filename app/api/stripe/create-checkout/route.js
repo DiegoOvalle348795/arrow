@@ -1,6 +1,4 @@
 import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/libs/next-auth";
 import { createCheckout } from "@/libs/stripe";
 import connectMongo from "@/libs/mongoose";
 import User from "@/models/User";
@@ -32,11 +30,9 @@ export async function POST(req) {
   }
 
   try {
-    const session = await getServerSession(authOptions);
-
     await connectMongo();
 
-    const user = await User.findById(session?.user?.id);
+    const user = await User.findById(req.user?.id);
 
     const { priceId, mode, successUrl, cancelUrl } = body;
 

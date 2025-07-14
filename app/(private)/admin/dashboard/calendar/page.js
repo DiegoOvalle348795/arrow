@@ -7,41 +7,6 @@ import startOfWeek from "date-fns/startOfWeek";
 import getDay from "date-fns/getDay";
 import es from "date-fns/locale/es";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { Fragment } from "react";
-
-function addBusinessDaysWithWeekends(startDate, days, incluirFinde = true) {
-  let result = new Date(startDate);
-  let added = 1; // el primer día ya cuenta
-  let weekendDays = [];
-  let allDays = [new Date(result)];
-  while (added < days) {
-    result.setDate(result.getDate() + 1);
-    const day = result.getDay();
-    if (incluirFinde || (day !== 0 && day !== 6)) {
-      added++;
-    } else {
-      weekendDays.push(new Date(result));
-    }
-    if (added <= days) allDays.push(new Date(result));
-  }
-  return { end: result, weekendDays, allDays };
-}
-
-function calcularFechaFinYFindes(startDate, duracion, incluirFinde = true) {
-  let result = new Date(startDate);
-  let added = 1;
-  let weekendDays = [];
-  while (added < duracion) {
-    result.setDate(result.getDate() + 1);
-    const day = result.getDay();
-    if (incluirFinde || (day !== 0 && day !== 6)) {
-      added++;
-    } else {
-      weekendDays.push(new Date(result));
-    }
-  }
-  return { fechaFin: new Date(result), weekendDays };
-}
 
 function rangoIncluyeFinde(startDate, endDate) {
   let d = new Date(startDate);
@@ -68,8 +33,6 @@ const localizer = dateFnsLocalizer({
 
 export default function CalendarPage() {
   const [trabajos, setTrabajos] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [selected, setSelected] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [editTrabajo, setEditTrabajo] = useState(null);
   const [form, setForm] = useState({
@@ -86,7 +49,6 @@ export default function CalendarPage() {
   const [formMsg, setFormMsg] = useState("");
   const [showWeekendModal, setShowWeekendModal] = useState(false);
   const [weekendDays, setWeekendDays] = useState([]);
-  const [pendingForm, setPendingForm] = useState(null);
   const [currentDate, setCurrentDate] = useState(new Date());
 
   useEffect(() => {
@@ -94,12 +56,12 @@ export default function CalendarPage() {
   }, []);
 
   function fetchTrabajos() {
-    setLoading(true);
+    setFormLoading(true);
     fetch("/api/work")
       .then(res => res.json())
       .then(data => {
         setTrabajos(data);
-        setLoading(false);
+        setFormLoading(false);
       });
   }
 
@@ -147,7 +109,6 @@ export default function CalendarPage() {
     if (findes.length > 0 && !showWeekendModal) {
       setWeekendDays(findes);
       setShowWeekendModal(true);
-      setPendingForm({ ...form });
       setFormLoading(false);
       return;
     }

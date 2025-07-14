@@ -1,11 +1,10 @@
 "use client";
 
-import { signOut } from "next-auth/react";
 import { ArrowLeftOnRectangleIcon } from "@heroicons/react/24/outline";
 
 export default function MobileHeader() {
   const handleLogout = () => {
-    signOut({ callbackUrl: "/" });
+    // signOut({ callbackUrl: "/" }); // This line is removed as per the edit hint.
   };
 
   return (

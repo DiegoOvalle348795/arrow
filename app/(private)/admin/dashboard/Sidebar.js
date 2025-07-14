@@ -1,14 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import {
-  HomeIcon,
-  UsersIcon,
-  ArrowLeftOnRectangleIcon,
-} from "@heroicons/react/24/outline";
-import { usePathname } from "next/navigation";
-import { signOut } from "next-auth/react";
-
 export default function Sidebar() {
   return (
     <div className="drawer-side">

@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 
 export default function Page() {
   const [showModal, setShowModal] = useState(false);
@@ -78,12 +79,12 @@ export default function Page() {
     }
   ];
 
-  const goToNext = () => {
+  const goToNext = useCallback(() => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setCurrentSlide((prev) => (prev + 1) % services.length);
     setTimeout(() => setIsTransitioning(false), 500);
-  };
+  }, [isTransitioning, services.length]);
 
   const goToPrevious = () => {
     if (isTransitioning) return;
@@ -106,7 +107,7 @@ export default function Page() {
       <header className="bg-gradient-to-r from-orange-500 via-orange-600 to-orange-500 text-white p-4 shadow-lg sticky top-0 z-50">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center">
-            <img src="/logo-arrow-insulation.png" alt="Arrow Insulation Logo" className="w-24 h-24 object-contain m-0 p-0 border-none" />
+            <Image src="/logo-arrow-insulation.png" alt="Arrow Insulation Logo" width={96} height={96} />
           </div>
           <nav className="hidden md:flex space-x-8">
             <a href="#services" className="hover:text-orange-100 transition-colors duration-300 font-medium">Services</a>
@@ -369,7 +370,7 @@ export default function Page() {
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
-                <img src="/logo-arrow-insulation.png" alt="Arrow Insulation Logo" className="w-20 h-20 object-contain bg-white rounded-full p-1" />
+                <Image src="/logo-arrow-insulation.png" alt="Arrow Insulation Logo" width={80} height={80} className="w-20 h-20 object-contain bg-white rounded-full p-1" />
               </div>
               <p className="text-orange-100 font-medium">
                 Colorado&apos;s trusted partner for professional insulation services since 2008.

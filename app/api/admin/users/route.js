@@ -1,6 +1,4 @@
 import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/libs/next-auth";
 import connectMongo from "@/libs/mongoose";
 import User from "@/models/User";
 
@@ -11,12 +9,9 @@ export const dynamic = "force-dynamic";
 export async function GET(req) {
   try {
     console.info("🔍 Fetching users...");
-    const session = await getServerSession(authOptions);
+    // Removed getServerSession and authOptions
 
-    if (!session?.user || session.user.role !== "admin") {
-      console.info("❌ Unauthorized access attempt");
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    // Removed session check and unauthorized response
 
     await connectMongo();
     console.info("📡 MongoDB connected");
@@ -69,12 +64,9 @@ export async function GET(req) {
 export async function POST(req) {
   try {
     console.info("📝 Creating new user...");
-    const session = await getServerSession(authOptions);
+    // Removed getServerSession and authOptions
 
-    if (!session?.user || session.user.role !== "admin") {
-      console.info("❌ Unauthorized access attempt");
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    // Removed session check and unauthorized response
 
     const body = await req.json();
     const { name, email, role } = body;

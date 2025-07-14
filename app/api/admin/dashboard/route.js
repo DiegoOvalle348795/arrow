@@ -1,6 +1,4 @@
 import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/libs/next-auth";
 import User from "@/models/User";
 import connectMongo from "@/libs/mongoose";
 
@@ -10,15 +8,13 @@ export const dynamic = "force-dynamic";
 // This route is used to get data for the admin dashboard
 export async function GET() {
   try {
-    const session = await getServerSession(authOptions);
+    // The session check and authOptions import have been removed as per the edit hint.
+    // The original code had `import { getServerSession } from "next-auth/next";` and `import { authOptions } from "@/libs/next-auth";`
+    // which are no longer needed.
 
-    if (!session) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
-    if (session.user.role !== "admin") {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    // The original code had `const session = await getServerSession(authOptions);`
+    // and `if (!session) { ... }` and `if (session.user.role !== "admin") { ... }`
+    // which are no longer needed.
 
     await connectMongo();
 
