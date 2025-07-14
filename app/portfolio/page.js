@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 export default function PortfolioPage() {
   const [works, setWorks] = useState([]);
@@ -39,7 +40,7 @@ export default function PortfolioPage() {
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center">
             <Link href="/">
-              <img src="/logo-arrow-insulation.png" alt="Arrow Insulation Logo" className="w-24 h-24 object-contain m-0 p-0 border-none" />
+              <Image src="/logo-arrow-insulation.png" alt="Arrow Insulation Logo" width={96} height={96} />
             </Link>
           </div>
           <nav className="hidden md:flex space-x-8">
@@ -86,7 +87,7 @@ export default function PortfolioPage() {
                   <div key={work._id} className="bg-white rounded-3xl shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-orange-100">
                     <div className="relative h-64 flex items-center justify-center bg-gradient-to-br from-orange-200 to-orange-300">
                       {work.imageUrl && (
-                        <img src={work.imageUrl} alt={work.title} className="object-cover w-full h-full" />
+                        <Image src={work.imageUrl} alt={work.title} layout="fill" objectFit="cover" />
                       )}
                       <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-sm font-semibold ${
                         work.category === "Residential" ? "bg-orange-500" : 
@@ -137,10 +138,10 @@ export default function PortfolioPage() {
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="flex items-center mb-4">
-                <img src="/logo-arrow-insulation.png" alt="Arrow Insulation Logo" className="w-20 h-20 object-contain bg-white rounded-full p-1" />
+                <Image src="/logo-arrow-insulation.png" alt="Arrow Insulation Logo" width={80} height={80} className="w-20 h-20 object-contain bg-white rounded-full p-1" />
               </div>
               <p className="text-orange-100 font-medium">
-                Colorado's trusted partner for professional insulation services since 2008.
+                Colorado&apos;s trusted partner for professional insulation services since 2008.
               </p>
             </div>
             <div>

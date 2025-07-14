@@ -9,20 +9,6 @@ import {
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
 
-// Admin sidebar navigation options
-const sidebarOptions = [
-  {
-    href: "/admin/dashboard",
-    label: "Dashboard",
-    icon: HomeIcon,
-  },
-  {
-    href: "/admin/dashboard/users",
-    label: "Users",
-    icon: UsersIcon,
-  },
-];
-
 export default function Sidebar() {
   return (
     <div className="drawer-side">

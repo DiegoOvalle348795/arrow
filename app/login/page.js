@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
@@ -21,7 +22,7 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-100 via-yellow-50 to-orange-200">
       <div className="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md text-center">
-        <img src="/logo-arrow-insulation.png" alt="Arrow Insulation Logo" className="w-24 h-24 mx-auto mb-6" />
+        <Image src="/logo-arrow-insulation.png" alt="Arrow Insulation Logo" width={96} height={96} className="w-24 h-24 mx-auto mb-6" />
         <h2 className="text-2xl font-bold mb-4 text-orange-600">Admin Login</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input type="text" value={username} onChange={e => setUsername(e.target.value)} required placeholder="Usuario" className="w-full px-4 py-3 border-2 border-orange-200 rounded-lg focus:outline-none focus:border-orange-500" />

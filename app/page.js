@@ -98,7 +98,7 @@ export default function Page() {
       goToNext();
     }, 4000);
     return () => clearInterval(interval);
-  }, []);
+  }, [goToNext]);
 
   return (
     <>
@@ -131,12 +131,12 @@ export default function Page() {
               </span>
             </div>
             <h2 className="text-5xl md:text-7xl font-extrabold mb-6 text-orange-600 leading-tight">
-              Colorado's Premier
+              Colorado&apos;s Premier
               <br />
               <span className="text-orange-500">Insulation Experts</span>
             </h2>
             <p className="text-xl md:text-2xl mb-10 text-orange-700 max-w-4xl mx-auto leading-relaxed font-medium">
-              Transform your home's comfort and energy efficiency with our professional insulation services. 
+              Transform your home&apos;s comfort and energy efficiency with our professional insulation services. 
               Save money, protect your property, and enjoy year-round comfort.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
@@ -180,7 +180,7 @@ export default function Page() {
             <div className="text-center mb-16">
               <h3 className="text-4xl md:text-5xl font-bold mb-6 text-orange-600">Our Professional Services</h3>
               <p className="text-xl text-orange-600 max-w-3xl mx-auto font-medium">
-                Comprehensive insulation solutions tailored to Colorado's unique climate and your specific needs
+                Comprehensive insulation solutions tailored to Colorado&apos;s unique climate and your specific needs
               </p>
             </div>
             
@@ -314,10 +314,10 @@ export default function Page() {
                 </div>
               </div>
               <div className="bg-white/20 backdrop-blur-sm rounded-3xl p-8 border-2 border-white/30 shadow-2xl">
-                <h4 className="text-2xl font-bold mb-6">Colorado's Climate Experts</h4>
+                <h4 className="text-2xl font-bold mb-6">Colorado&apos;s Climate Experts</h4>
                 <p className="text-orange-50 mb-6 font-medium">
-                  From Denver's urban heat to mountain town winters, we understand Colorado's diverse climate challenges. 
-                  Our solutions are specifically designed for our region's unique weather patterns.
+                  From Denver&apos;s urban heat to mountain town winters, we understand Colorado&apos;s diverse climate challenges. 
+                  Our solutions are specifically designed for our region&apos;s unique weather patterns.
                 </p>
                 <div className="grid grid-cols-2 gap-6">
                   <div className="text-center bg-white/20 rounded-2xl p-4">
@@ -339,7 +339,7 @@ export default function Page() {
           <div className="max-w-4xl mx-auto px-4 text-center">
             <h3 className="text-4xl md:text-5xl font-bold mb-6 text-orange-600">Ready to Get Started?</h3>
             <p className="text-xl mb-12 text-orange-600 max-w-2xl mx-auto font-medium">
-              Transform your property's comfort and efficiency today. Get your free consultation and estimate from Colorado's trusted insulation experts.
+              Transform your property&apos;s comfort and efficiency today. Get your free consultation and estimate from Colorado&apos;s trusted insulation experts.
             </p>
             
             <div className="grid md:grid-cols-1 gap-8 mb-12">
@@ -372,7 +372,7 @@ export default function Page() {
                 <img src="/logo-arrow-insulation.png" alt="Arrow Insulation Logo" className="w-20 h-20 object-contain bg-white rounded-full p-1" />
               </div>
               <p className="text-orange-100 font-medium">
-                Colorado's trusted partner for professional insulation services since 2008.
+                Colorado&apos;s trusted partner for professional insulation services since 2008.
               </p>
             </div>
             <div>

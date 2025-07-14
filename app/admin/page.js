@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 function formatTime(dateStr) {
   if (!dateStr) return "-";
@@ -228,7 +229,7 @@ export default function AdminPage() {
       <div className="w-full max-w-6xl">
         <div className="flex justify-between items-center mb-8">
           <div className="flex items-center">
-            <img src="/logo-arrow-insulation.png" alt="Arrow Insulation Logo" className="w-20 h-20 object-contain bg-white rounded-full p-1" />
+            <Image src="/logo-arrow-insulation.png" alt="Arrow Insulation Logo" width={80} height={80} className="w-20 h-20 object-contain bg-white rounded-full p-1" />
             <h2 className="ml-4 text-3xl font-bold text-orange-600">Panel de administración</h2>
           </div>
           <button onClick={handleLogout} className="bg-orange-100 text-orange-600 px-6 py-2 rounded-full font-semibold hover:bg-orange-200 transition-colors">Cerrar sesión</button>
@@ -256,7 +257,7 @@ export default function AdminPage() {
               <div key={work._id} className="bg-white rounded-3xl shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-orange-100 relative">
                 <div className="relative h-64 flex items-center justify-center bg-gradient-to-br from-orange-200 to-orange-300">
                   {work.imageUrl && (
-                    <img src={work.imageUrl} alt={work.title} className="object-cover w-full h-full" />
+                    <Image src={work.imageUrl} alt={work.title} width={300} height={200} className="object-cover w-full h-full" />
                   )}
                   <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-sm font-semibold ${work.category === "Residential" ? "bg-orange-500" : work.category === "Commercial" ? "bg-yellow-500" : "bg-red-500"} text-white`}>
                     {work.category}
@@ -286,7 +287,7 @@ export default function AdminPage() {
             <h3 className="text-2xl font-bold mb-4 text-orange-600 text-center">{editWork ? "Editar trabajo" : "Subir nuevo trabajo"}</h3>
             <form onSubmit={handleSubmit} className="space-y-4">
               <input type="file" accept="image/*" onChange={handleImageChange} className="w-full" required={!editWork} />
-              {image && <img src={image} alt="Preview" className="w-full h-48 object-cover rounded-lg mb-2" />}
+              {image && <Image src={image} alt="Preview" width={200} height={100} className="w-full h-48 object-cover rounded-lg mb-2" />}
               <input type="text" value={title} onChange={e => setTitle(e.target.value)} required placeholder="Título del trabajo" className="w-full px-4 py-3 border-2 border-orange-200 rounded-lg focus:outline-none focus:border-orange-500" />
               <textarea value={description} onChange={e => setDescription(e.target.value)} required placeholder="Descripción" rows={3} className="w-full px-4 py-3 border-2 border-orange-200 rounded-lg focus:outline-none focus:border-orange-500" />
               <select value={category} onChange={e => setCategory(e.target.value)} className="w-full px-4 py-3 border-2 border-orange-200 rounded-lg focus:outline-none focus:border-orange-500">
