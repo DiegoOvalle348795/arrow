@@ -67,6 +67,8 @@ export default function PortfolioPage() {
               <button onClick={() => setFilter("Residential")} className={`px-6 py-3 rounded-full font-semibold shadow-lg ${filter === "Residential" ? "bg-orange-500 text-white" : "bg-white text-orange-600 border-2 border-orange-200"}`}>Residential</button>
               <button onClick={() => setFilter("Commercial")} className={`px-6 py-3 rounded-full font-semibold shadow-lg ${filter === "Commercial" ? "bg-orange-500 text-white" : "bg-white text-orange-600 border-2 border-orange-200"}`}>Commercial</button>
               <button onClick={() => setFilter("Soundproofing")} className={`px-6 py-3 rounded-full font-semibold shadow-lg ${filter === "Soundproofing" ? "bg-orange-500 text-white" : "bg-white text-orange-600 border-2 border-orange-200"}`}>Soundproofing</button>
+              <button onClick={() => setFilter("Insulation Removal")} className={`px-6 py-3 rounded-full font-semibold shadow-lg ${filter === "Insulation Removal" ? "bg-orange-500 text-white" : "bg-white text-orange-600 border-2 border-orange-200"}`}>Insulation Removal</button>
+              <button onClick={() => setFilter("Blowing Insulation")} className={`px-6 py-3 rounded-full font-semibold shadow-lg ${filter === "Blowing Insulation" ? "bg-orange-500 text-white" : "bg-white text-orange-600 border-2 border-orange-200"}`}>Blowing Insulation</button>
             </div>
           </div>
         </section>
@@ -86,7 +88,13 @@ export default function PortfolioPage() {
                       {work.imageUrl && (
                         <img src={work.imageUrl} alt={work.title} className="object-cover w-full h-full" />
                       )}
-                      <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-sm font-semibold ${work.category === "Residential" ? "bg-orange-500" : work.category === "Commercial" ? "bg-yellow-500" : "bg-red-500"} text-white`}>
+                      <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-sm font-semibold ${
+                        work.category === "Residential" ? "bg-orange-500" : 
+                        work.category === "Commercial" ? "bg-yellow-500" : 
+                        work.category === "Soundproofing" ? "bg-red-500" :
+                        work.category === "Insulation Removal" ? "bg-green-500" :
+                        work.category === "Blowing Insulation" ? "bg-blue-500" : "bg-gray-500"
+                      } text-white`}>
                         {work.category}
                       </div>
                     </div>
@@ -141,7 +149,8 @@ export default function PortfolioPage() {
                 <li><Link href="/#services" className="hover:text-white transition-colors font-medium">Residential</Link></li>
                 <li><Link href="/#services" className="hover:text-white transition-colors font-medium">Commercial</Link></li>
                 <li><Link href="/#services" className="hover:text-white transition-colors font-medium">Soundproofing</Link></li>
-                <li><Link href="/#services" className="hover:text-white transition-colors font-medium">Energy Audits</Link></li>
+                <li><Link href="/#services" className="hover:text-white transition-colors font-medium">Insulation Removal</Link></li>
+                <li><Link href="/#services" className="hover:text-white transition-colors font-medium">Blowing Insulation</Link></li>
               </ul>
             </div>
             <div>

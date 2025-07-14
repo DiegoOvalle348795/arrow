@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import PortfolioWork from '@/models/PortfolioWork';
-import { connectToDatabase } from '@/libs/mongo';
+import connectMongo from '@/libs/mongoose';
 import { v2 as cloudinary } from 'cloudinary';
 
 cloudinary.config({
@@ -10,13 +10,13 @@ cloudinary.config({
 });
 
 export async function GET() {
-  await connectToDatabase();
+  await connectMongo();
   const works = await PortfolioWork.find().sort({ doneAt: -1 });
   return NextResponse.json(works);
 }
 
 export async function POST(req) {
-  await connectToDatabase();
+  await connectMongo();
   const formData = await req.formData();
   const title = formData.get('title');
   const description = formData.get('description');

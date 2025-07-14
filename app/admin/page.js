@@ -238,6 +238,7 @@ export default function AdminPage() {
             <button onClick={handleStartTurn} disabled={turnoLoading} className="bg-green-500 text-white px-6 py-2 rounded-full font-semibold hover:bg-green-600 transition-colors">Iniciar turno</button>
             <button onClick={handleEndTurn} disabled={turnoLoading} className="bg-blue-500 text-white px-6 py-2 rounded-full font-semibold hover:bg-blue-600 transition-colors">Finalizar turno</button>
             <button onClick={openWorkModal} className="bg-orange-500 text-white px-6 py-2 rounded-full font-semibold hover:bg-orange-600 transition-colors">Revisar horas</button>
+            <a href="/admin/dashboard/calendar" className="bg-yellow-400 text-white px-6 py-2 rounded-full font-semibold hover:bg-yellow-500 transition-colors">Calendario de trabajos</a>
           </div>
           {turnoMsg && <div className="text-green-700 font-semibold">{turnoMsg}</div>}
         </div>

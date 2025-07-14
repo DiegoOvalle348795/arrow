@@ -1,10 +1,12 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Page() {
   const [showModal, setShowModal] = useState(false);
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -17,6 +19,86 @@ export default function Page() {
     window.location.href = `mailto:info@arrowinsulation.com?subject=${subject}&body=${body}`;
     setShowModal(false);
   };
+
+  const services = [
+    {
+      title: "Residential Insulation",
+      description: "Complete home insulation solutions including attic, walls, crawl spaces, and basement. Improve comfort and reduce energy bills by up to 40%.",
+      icon: (
+        <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+      ),
+      color: "from-orange-400 to-orange-500",
+      features: ["Attic Insulation", "Wall Insulation", "Crawl Space Sealing"]
+    },
+    {
+      title: "Commercial Insulation",
+      description: "Professional insulation for offices, warehouses, retail spaces, and industrial facilities. Boost energy efficiency and create comfortable work environments.",
+      icon: (
+        <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+        </svg>
+      ),
+      color: "from-yellow-400 to-orange-500",
+      features: ["Office Buildings", "Warehouses", "Retail Spaces"]
+    },
+    {
+      title: "Soundproofing",
+      description: "Advanced acoustic insulation solutions for homes, offices, and studios. Create peaceful environments and improve productivity.",
+      icon: (
+        <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+        </svg>
+      ),
+      color: "from-red-400 to-orange-500",
+      features: ["Home Theaters", "Music Studios", "Office Spaces"]
+    },
+    {
+      title: "Insulation Removal",
+      description: "Professional removal of old, damaged, or contaminated insulation. Safe disposal and preparation for new installation.",
+      icon: (
+        <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+        </svg>
+      ),
+      color: "from-green-400 to-orange-500",
+      features: ["Attic Cleanout", "Mold Remediation", "Safe Disposal"]
+    },
+    {
+      title: "Blowing Insulation",
+      description: "Advanced blown-in insulation for attics and walls. Superior coverage and energy efficiency with minimal disruption.",
+      icon: (
+        <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+      ),
+      color: "from-blue-400 to-orange-500",
+      features: ["Attic Blowing", "Wall Cavity Filling", "Cellulose & Fiberglass"]
+    }
+  ];
+
+  const goToNext = () => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentSlide((prev) => (prev + 1) % services.length);
+    setTimeout(() => setIsTransitioning(false), 500);
+  };
+
+  const goToPrevious = () => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentSlide((prev) => (prev - 1 + services.length) % services.length);
+    setTimeout(() => setIsTransitioning(false), 500);
+  };
+
+  // Auto-rotate carousel
+  useEffect(() => {
+    const interval = setInterval(() => {
+      goToNext();
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <>
@@ -93,7 +175,7 @@ export default function Page() {
         </section>
 
         {/* Services Section */}
-        <section id="services" className="py-20 bg-gradient-to-b from-white to-orange-100">
+        <section id="services" className="py-20 bg-gradient-to-b from-white to-orange-100 overflow-hidden">
           <div className="max-w-6xl mx-auto px-4">
             <div className="text-center mb-16">
               <h3 className="text-4xl md:text-5xl font-bold mb-6 text-orange-600">Our Professional Services</h3>
@@ -101,59 +183,86 @@ export default function Page() {
                 Comprehensive insulation solutions tailored to Colorado's unique climate and your specific needs
               </p>
             </div>
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-white p-8 rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:-translate-y-3 border-2 border-orange-200">
-                <div className="w-20 h-20 bg-gradient-to-br from-orange-400 to-orange-500 rounded-3xl flex items-center justify-center mb-6 shadow-lg">
-                  <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                  </svg>
+            
+            {/* Services Carousel */}
+            <div className="relative">
+              {/* Navigation Arrows */}
+              <button 
+                onClick={goToPrevious}
+                disabled={isTransitioning}
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 bg-white/90 hover:bg-white text-orange-600 p-4 rounded-full shadow-xl transition-all duration-300 hover:scale-110 border-2 border-orange-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              
+              <button 
+                onClick={goToNext}
+                disabled={isTransitioning}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 bg-white/90 hover:bg-white text-orange-600 p-4 rounded-full shadow-xl transition-all duration-300 hover:scale-110 border-2 border-orange-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+
+              {/* Carousel Container */}
+              <div className="overflow-hidden">
+                <div 
+                  className="flex transition-transform duration-500 ease-in-out"
+                  style={{ transform: `translateX(calc(-${currentSlide * 33.33}% + 33.33%))` }}
+                >
+                  {/* Main services */}
+                  {services.map((service, index) => (
+                    <div key={index} className="w-1/3 flex-shrink-0 px-4">
+                      <div className="max-w-sm mx-auto">
+                        <div className={`bg-white p-6 rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-3 border-2 border-orange-200 ${
+                          currentSlide === index 
+                            ? 'scale-100 opacity-100 shadow-2xl' 
+                            : 'scale-90 opacity-60 shadow-lg'
+                        }`}>
+                          <div className={`w-16 h-16 bg-gradient-to-br ${service.color} rounded-2xl flex items-center justify-center mb-4 shadow-lg mx-auto`}>
+                            {service.icon}
+                          </div>
+                          <h4 className="text-xl font-bold mb-4 text-orange-600 text-center">{service.title}</h4>
+                          <p className="text-orange-600 leading-relaxed mb-6 font-medium text-sm text-center">
+                            {service.description}
+                          </p>
+                          <ul className="space-y-2 text-orange-500 font-medium text-sm">
+                            {service.features.map((feature, idx) => (
+                              <li key={idx} className="flex items-center justify-center">
+                                <span className="mr-2 text-orange-400 text-lg">✓</span> {feature}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-                <h4 className="text-2xl font-bold mb-4 text-orange-600">Residential Insulation</h4>
-                <p className="text-orange-600 leading-relaxed mb-6 font-medium">
-                  Complete home insulation solutions including attic, walls, crawl spaces, and basement. 
-                  Improve comfort and reduce energy bills by up to 40%.
-                </p>
-                <ul className="space-y-3 text-orange-500 font-medium">
-                  <li className="flex items-center"><span className="mr-3 text-orange-400 text-xl">✓</span> Attic Insulation</li>
-                  <li className="flex items-center"><span className="mr-3 text-orange-400 text-xl">✓</span> Wall Insulation</li>
-                  <li className="flex items-center"><span className="mr-3 text-orange-400 text-xl">✓</span> Crawl Space Sealing</li>
-                </ul>
               </div>
 
-              <div className="bg-white p-8 rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:-translate-y-3 border-2 border-orange-200">
-                <div className="w-20 h-20 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-3xl flex items-center justify-center mb-6 shadow-lg">
-                  <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                  </svg>
-                </div>
-                <h4 className="text-2xl font-bold mb-4 text-orange-600">Commercial Insulation</h4>
-                <p className="text-orange-600 leading-relaxed mb-6 font-medium">
-                  Professional insulation for offices, warehouses, retail spaces, and industrial facilities. 
-                  Boost energy efficiency and create comfortable work environments.
-                </p>
-                <ul className="space-y-3 text-orange-500 font-medium">
-                  <li className="flex items-center"><span className="mr-3 text-orange-400 text-xl">✓</span> Office Buildings</li>
-                  <li className="flex items-center"><span className="mr-3 text-orange-400 text-xl">✓</span> Warehouses</li>
-                  <li className="flex items-center"><span className="mr-3 text-orange-400 text-xl">✓</span> Retail Spaces</li>
-                </ul>
-              </div>
-
-              <div className="bg-white p-8 rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:-translate-y-3 border-2 border-orange-200">
-                <div className="w-20 h-20 bg-gradient-to-br from-red-400 to-orange-500 rounded-3xl flex items-center justify-center mb-6 shadow-lg">
-                  <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-                  </svg>
-                </div>
-                <h4 className="text-2xl font-bold mb-4 text-orange-600">Soundproofing</h4>
-                <p className="text-orange-600 leading-relaxed mb-6 font-medium">
-                  Advanced acoustic insulation solutions for homes, offices, and studios. 
-                  Create peaceful environments and improve productivity.
-                </p>
-                <ul className="space-y-3 text-orange-500 font-medium">
-                  <li className="flex items-center"><span className="mr-3 text-orange-400 text-xl">✓</span> Home Theaters</li>
-                  <li className="flex items-center"><span className="mr-3 text-orange-400 text-xl">✓</span> Music Studios</li>
-                  <li className="flex items-center"><span className="mr-3 text-orange-400 text-xl">✓</span> Office Spaces</li>
-                </ul>
+              {/* Dots Indicator */}
+              <div className="flex justify-center mt-8 space-x-3">
+                {services.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => {
+                      if (!isTransitioning) {
+                        setIsTransitioning(true);
+                        setCurrentSlide(index);
+                        setTimeout(() => setIsTransitioning(false), 500);
+                      }
+                    }}
+                    disabled={isTransitioning}
+                    className={`w-4 h-4 rounded-full transition-all duration-300 border-2 ${
+                      currentSlide === index 
+                        ? 'bg-orange-500 border-orange-500 scale-125' 
+                        : 'bg-white border-orange-300 hover:border-orange-400'
+                    } ${isTransitioning ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  />
+                ))}
               </div>
             </div>
           </div>
@@ -272,7 +381,8 @@ export default function Page() {
                 <li><a href="#" className="hover:text-white transition-colors font-medium">Residential</a></li>
                 <li><a href="#" className="hover:text-white transition-colors font-medium">Commercial</a></li>
                 <li><a href="#" className="hover:text-white transition-colors font-medium">Soundproofing</a></li>
-                <li><a href="#" className="hover:text-white transition-colors font-medium">Energy Audits</a></li>
+                <li><a href="#" className="hover:text-white transition-colors font-medium">Insulation Removal</a></li>
+                <li><a href="#" className="hover:text-white transition-colors font-medium">Blowing Insulation</a></li>
               </ul>
             </div>
             <div>
@@ -299,17 +409,63 @@ export default function Page() {
         </div>
       </footer>
 
+      {/* Contact Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
-          <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md relative animate-fade-in">
-            <button onClick={() => setShowModal(false)} className="absolute top-3 right-3 text-orange-600 hover:text-orange-800 text-2xl font-bold">&times;</button>
-            <h3 className="text-2xl font-bold mb-4 text-orange-600 text-center">Get a Free Quote</h3>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-3xl p-8 max-w-md w-full">
+            <h3 className="text-2xl font-bold mb-6 text-orange-600">Get Your Free Quote</h3>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <input type="text" name="name" value={form.name} onChange={handleChange} required placeholder="Your Name" className="w-full px-4 py-3 border-2 border-orange-200 rounded-lg focus:outline-none focus:border-orange-500" />
-              <input type="email" name="email" value={form.email} onChange={handleChange} required placeholder="Your Email" className="w-full px-4 py-3 border-2 border-orange-200 rounded-lg focus:outline-none focus:border-orange-500" />
-              <input type="tel" name="phone" value={form.phone} onChange={handleChange} required placeholder="Your Phone Number" className="w-full px-4 py-3 border-2 border-orange-200 rounded-lg focus:outline-none focus:border-orange-500" />
-              <textarea name="message" value={form.message} onChange={handleChange} required placeholder="Your Message" rows={4} className="w-full px-4 py-3 border-2 border-orange-200 rounded-lg focus:outline-none focus:border-orange-500" />
-              <button type="submit" className="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-3 rounded-lg font-bold text-lg hover:from-orange-600 hover:to-orange-700 transition-all">Send</button>
+              <input
+                type="text"
+                name="name"
+                placeholder="Your Name"
+                value={form.name}
+                onChange={handleChange}
+                className="w-full p-3 border border-gray-300 rounded-lg"
+                required
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Your Email"
+                value={form.email}
+                onChange={handleChange}
+                className="w-full p-3 border border-gray-300 rounded-lg"
+                required
+              />
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Your Phone"
+                value={form.phone}
+                onChange={handleChange}
+                className="w-full p-3 border border-gray-300 rounded-lg"
+                required
+              />
+              <textarea
+                name="message"
+                placeholder="Tell us about your project"
+                value={form.message}
+                onChange={handleChange}
+                className="w-full p-3 border border-gray-300 rounded-lg"
+                rows="4"
+                required
+              />
+              <div className="flex gap-4">
+                <button
+                  type="submit"
+                  className="flex-1 bg-orange-500 text-white py-3 px-6 rounded-lg font-semibold hover:bg-orange-600 transition-colors"
+                >
+                  Send Quote Request
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowModal(false)}
+                  className="flex-1 bg-gray-300 text-gray-700 py-3 px-6 rounded-lg font-semibold hover:bg-gray-400 transition-colors"
+                >
+                  Cancel
+                </button>
+              </div>
             </form>
           </div>
         </div>
